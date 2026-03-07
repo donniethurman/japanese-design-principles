@@ -1,0 +1,419 @@
+/* =========================================
+   VARIABLES & THEMING
+   ========================================= */
+   :root {
+    /* Base Typography Hierarchy */
+    --font-display: 'Noto Serif JP', serif;
+    --font-title: 'Zen Dots', system-ui;
+    --font-heading: 'Inter', sans-serif;
+    --font-body: 'Source Serif 4', serif;
+
+    /* Base Colors */
+    --color-text-main: #2C2C2C;
+    --color-text-muted: #555555;
+    --color-nav-border: #E0E0E0;
+
+    /* Layout Constraints */
+    --max-width: 1100px;
+    --section-padding-large: 180px;
+    --section-padding-mobile: 100px;
+
+    /* Theme Tokens (will be overridden by section classes) */
+    --theme-bg: #FFFFFF;
+    --theme-accent: #2C2C2C;
+    --theme-kanji-opacity: 0.04;
+}
+
+/* Principle Specific Colors */
+.theme-wabi {
+    --theme-bg: #FDFBF7;
+    --theme-accent: #A66646; /* Warm earth tone */
+    --theme-kanji-opacity: 0.08;
+}
+
+.theme-ma {
+    --theme-bg: #FCFAF5;
+    --theme-accent: #C8AB7F; /* Soft gold/tan */
+    --theme-kanji-opacity: 0.06;
+}
+
+.theme-shibui {
+    --theme-bg: #F5F6F8;
+    --theme-accent: #2F364E; /* Slate dark blue */
+}
+
+.theme-kanso {
+    --theme-bg: #F9F8F6;
+    --theme-accent: #706F6D; /* Warm grey */
+}
+
+.theme-iki {
+    --theme-bg: #F7F8FA;
+    --theme-accent: #455B77; /* Deep muted blue */
+}
+
+.theme-yugen {
+    --theme-bg: #F4F3F5;
+    --theme-accent: #5E5865; /* Muted violet/gray */
+}
+
+.theme-mottainai {
+    --theme-bg: #F5F7F5;
+    --theme-accent: #5C6E5C; /* Soft moss green */
+}
+
+/* =========================================
+   GLOBAL RESETS & TYPOGRAPHY
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    color: var(--color-text-main);
+    background-color: #FFFFFF;
+}
+
+body {
+    font-family: var(--font-body);
+    line-height: 1.6;
+    font-size: 1.125rem;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+}
+
+strong {
+    font-weight: 600;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 40px;
+    position: relative;
+    z-index: 2;
+}
+
+/* =========================================
+   NAVIGATION
+   ========================================= */
+.global-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--color-nav-border);
+    z-index: 100;
+    padding: 20px 0;
+    transition: background-color 0.4s ease;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.nav-links a {
+    position: relative;
+    padding-bottom: 4px;
+    color: var(--color-text-muted);
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--color-text-main);
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 1px;
+    background-color: var(--color-text-main);
+    transition: width 0.3s ease;
+}
+
+.nav-links a.active::after {
+    width: 100%;
+}
+
+/* =========================================
+   HERO SECTION
+   ========================================= */
+.hero {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: 80px; /* Offset for nav */
+}
+
+.hero h1 {
+    font-family: var(--font-title);
+    font-size: clamp(3rem, 6vw, 5rem);
+    line-height: 1.2;
+    margin-bottom: 40px;
+    letter-spacing: -0.02em;
+}
+
+.hero-description {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* =========================================
+   PRINCIPLE SECTIONS
+   ========================================= */
+.principle-section {
+    position: relative;
+    padding: var(--section-padding-large) 0;
+    background-color: var(--theme-bg);
+    overflow: hidden; /* Contains the large kanji */
+    transition: background-color 0.8s ease;
+}
+
+/* Background Kanji typography system */
+.bg-kanji {
+    font-family: var(--font-display);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(20rem, 50vw, 40rem);
+    line-height: 1;
+    color: var(--theme-accent);
+    opacity: var(--theme-kanji-opacity);
+    user-select: none;
+    white-space: nowrap;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 100px;
+}
+
+.section-header .title {
+    font-family: var(--font-title);
+    font-size: clamp(3.5rem, 8vw, 6rem);
+    color: var(--theme-accent);
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+}
+
+.section-header .subtitle {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: var(--color-text-main);
+}
+
+/* =========================================
+   EDITORIAL LAYOUT SYSTEM
+   ========================================= */
+.editorial-layout {
+    display: grid;
+    grid-template-columns: 4fr 5fr;
+    gap: 80px;
+    align-items: start;
+}
+
+.content-block {
+    margin-bottom: 60px;
+}
+
+.content-block h3, 
+.image-block h3 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 24px;
+    color: var(--color-text-main);
+}
+
+.content-block p {
+    margin-bottom: 24px;
+    color: var(--color-text-muted);
+}
+
+.content-block ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.content-block ul li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 12px;
+    color: var(--color-text-muted);
+}
+
+.content-block ul li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--theme-accent);
+}
+
+/* =========================================
+   IMAGE TREATMENT
+   ========================================= */
+.image-block {
+    margin-bottom: 80px;
+    display: flex;
+    flex-direction: column;
+}
+
+.image-block.contemporary {
+    padding-left: 40px; /* Asymmetrical grid shift */
+}
+
+.img-wrapper {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    background-color: #EAEAEA;
+    padding: 15px; /* Subtle editorial framing */
+    background: #FFFFFF;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    margin-bottom: 20px;
+}
+
+.img-wrapper img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    aspect-ratio: 4/3;
+    display: block;
+    mix-blend-mode: multiply; /* Helps ground images in their bg */
+}
+
+/* Placeholder for Contemporary Sections */
+.img-placeholder {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background-color: rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.img-placeholder span {
+    font-family: var(--font-heading);
+    color: rgba(0,0,0,0.5);
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+figcaption {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+}
+
+figcaption strong {
+    color: var(--color-text-main);
+}
+
+/* =========================================
+   CLOSING REFLECTION & FOOTER
+   ========================================= */
+.closing-reflection {
+    padding: var(--section-padding-large) 0;
+    text-align: center;
+    background-color: #FFFFFF;
+}
+
+.closing-reflection h2 {
+    font-family: var(--font-title);
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+}
+
+.closing-reflection p {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+}
+
+footer {
+    padding: 60px 0;
+    text-align: center;
+    background-color: #FAFAFA;
+    border-top: 1px solid var(--color-nav-border);
+}
+
+footer p {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    color: #888888;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* =========================================
+   RESPONSIVE DESIGN
+   ========================================= */
+@media (max-width: 900px) {
+    .editorial-layout {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+
+    .image-block.contemporary {
+        padding-left: 0;
+    }
+    
+    .nav-links {
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    
+    .principle-section {
+        padding: var(--section-padding-mobile) 0;
+    }
+    
+    .bg-kanji {
+        font-size: clamp(15rem, 80vw, 30rem);
+    }
+}
