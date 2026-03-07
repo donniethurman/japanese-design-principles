@@ -17,6 +17,7 @@
     --max-width: 1100px;
     --section-padding-large: 180px;
     --section-padding-mobile: 100px;
+    --nav-height: 80px;
 
     /* Theme Tokens (will be overridden by section classes) */
     --theme-bg: #FFFFFF;
@@ -173,7 +174,7 @@ a {
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding-top: 80px; /* Offset for nav */
+    padding-top: var(--nav-height); /* Offset for nav */
 }
 
 .hero h1 {
@@ -299,7 +300,21 @@ a {
 }
 
 .image-block.contemporary {
-    padding-left: 40px; /* Asymmetrical grid shift */
+    padding-left: 0;
+    min-height: calc(100svh - var(--nav-height));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.image-block.contemporary h3,
+.image-block.contemporary .img-placeholder,
+.image-block.contemporary figcaption {
+    width: min(100%, 560px);
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .img-wrapper {
@@ -402,6 +417,7 @@ footer p {
 
     .image-block.contemporary {
         padding-left: 0;
+        min-height: auto;
     }
     
     .nav-links {
