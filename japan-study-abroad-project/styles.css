@@ -297,6 +297,56 @@ a {
     background-image: url('assets/japan-project-graphics_mottainai.png');
 }
 
+/* PNG decorations next to contemporary image blocks */
+.theme-wabi .image-block.contemporary::after,
+.theme-ma .image-block.contemporary::after,
+.theme-shibui .image-block.contemporary::after,
+.theme-kanso .image-block.contemporary::after,
+.theme-iki .image-block.contemporary::after,
+.theme-yugen .image-block.contemporary::after,
+.theme-mottainai .image-block.contemporary::after {
+    content: '';
+    position: absolute;
+    left: -350px;
+    top: 90%;
+    transform: translateY(-50%) scaleX(-1);
+    width: 900px;
+    height: 900px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.2;
+    pointer-events: none;
+}
+
+.theme-wabi .image-block.contemporary::after {
+    background-image: url('assets/japan-project-graphics_wabi-sabi.png');
+}
+
+.theme-ma .image-block.contemporary::after {
+    background-image: url('assets/japan-project-graphics_ma.png');
+}
+
+.theme-shibui .image-block.contemporary::after {
+    background-image: url('assets/japan-project-graphics_shibui.png');
+}
+
+.theme-kanso .image-block.contemporary::after {
+    background-image: url('assets/japan-project-graphics_kanso.png');
+}
+
+.theme-iki .image-block.contemporary::after {
+    background-image: url('assets/japan-project-graphics_iki.png');
+}
+
+.theme-yugen .image-block.contemporary::after {
+    background-image: url('assets/japan-project-graphics_yugen.png');
+}
+
+.theme-mottainai .image-block.contemporary::after {
+    background-image: url('assets/japan-project-graphics_mottainai.png');
+}
+
 /* Background Kanji typography system */
 .bg-kanji {
     font-family: var(--font-display);
