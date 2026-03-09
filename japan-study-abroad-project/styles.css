@@ -169,12 +169,53 @@ a {
    HERO SECTION
    ========================================= */
 .hero {
+    position: relative;
     min-height: 80vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     padding-top: var(--nav-height); /* Offset for nav */
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 90%;
+    right: -15%;
+    transform: translateY(-50%);
+    width: 900px;
+    height: 900px;
+    background-image: url('assets/japan-project-graphics.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right center;
+    opacity: 0.2;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -15%;
+    width: 900px;
+    height: 900px;
+    background-image: url('assets/japan-project-graphics.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: left center;
+    opacity: 0.2;
+    z-index: 0;
+    pointer-events: none;
+    transform: rotate(180deg);
+}
+
+.hero .container {
+    position: relative;
+    z-index: 1;
 }
 
 .hero h1 {
@@ -204,6 +245,56 @@ a {
     background-color: var(--theme-bg);
     overflow: hidden; /* Contains the large kanji */
     transition: background-color 0.8s ease;
+}
+
+/* Background PNG decorations for each section */
+.theme-wabi::before,
+.theme-ma::before,
+.theme-shibui::before,
+.theme-kanso::before,
+.theme-iki::before,
+.theme-yugen::before,
+.theme-mottainai::before {
+    content: '';
+    position: absolute;
+    top: 100px;
+    right: 1%;
+    width: 900px;
+    height: 900px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right center;
+    opacity: 0.2;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.theme-wabi::before {
+    background-image: url('assets/japan-project-graphics_wabi-sabi.png');
+}
+
+.theme-ma::before {
+    background-image: url('assets/japan-project-graphics_ma.png');
+}
+
+.theme-shibui::before {
+    background-image: url('assets/japan-project-graphics_shibui.png');
+}
+
+.theme-kanso::before {
+    background-image: url('assets/japan-project-graphics_kanso.png');
+}
+
+.theme-iki::before {
+    background-image: url('assets/japan-project-graphics_iki.png');
+}
+
+.theme-yugen::before {
+    background-image: url('assets/japan-project-graphics_yugen.png');
+}
+
+.theme-mottainai::before {
+    background-image: url('assets/japan-project-graphics_mottainai.png');
 }
 
 /* Background Kanji typography system */
@@ -335,6 +426,14 @@ a {
     aspect-ratio: 4/3;
     display: block;
     mix-blend-mode: multiply; /* Helps ground images in their bg */
+}
+
+.img-wrapper img.img-fit-contain {
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+    object-fit: contain;
+    mix-blend-mode: normal;
 }
 
 /* Placeholder for Contemporary Sections */
