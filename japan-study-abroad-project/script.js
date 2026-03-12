@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sections = document.querySelectorAll('.principle-section');
     const navLinks = document.querySelectorAll('.nav-links a');
     const nav = document.querySelector('.global-nav');
+    const galleryImages = document.querySelectorAll('.img-wrapper img');
 
     // Options for the Intersection Observer
     const observerOptions = {
@@ -35,5 +36,61 @@ document.addEventListener('DOMContentLoaded', () => {
 
     sections.forEach(section => {
         observer.observe(section);
+    });
+
+    // Image modal for traditional example images.
+    const modal = document.createElement('div');
+    modal.className = 'image-modal';
+    modal.setAttribute('aria-hidden', 'true');
+    modal.innerHTML = `
+        <div class="image-modal__backdrop" data-close="modal"></div>
+        <div class="image-modal__dialog" role="dialog" aria-modal="true" aria-label="Expanded image">
+            <button type="button" class="image-modal__close" aria-label="Close image">&times;</button>
+            <img class="image-modal__img" src="" alt="">
+        </div>
+    `;
+    document.body.appendChild(modal);
+
+    const modalImage = modal.querySelector('.image-modal__img');
+    const closeButton = modal.querySelector('.image-modal__close');
+
+    const openModal = (img) => {
+        modalImage.src = img.currentSrc || img.src;
+        modalImage.alt = img.alt || 'Expanded image';
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('modal-open');
+        closeButton.focus();
+    };
+
+    const closeModal = () => {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        modalImage.src = '';
+        document.body.classList.remove('modal-open');
+    };
+
+    galleryImages.forEach(img => {
+        img.style.cursor = 'zoom-in';
+        img.addEventListener('click', () => openModal(img));
+    });
+
+    modal.addEventListener('click', (event) => {
+        if (!(event.target instanceof HTMLElement)) {
+            return;
+        }
+
+        // Close on any click outside the enlarged image.
+        if (!event.target.closest('.image-modal__img')) {
+            closeModal();
+        }
+    });
+
+    closeButton.addEventListener('click', closeModal);
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+            closeModal();
+        }
     });
 });
